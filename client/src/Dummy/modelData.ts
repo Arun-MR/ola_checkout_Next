@@ -82,7 +82,7 @@ export const modelData: VehicleData = {
                 "https://dummyimage.com/600x400/c0c0c0/000&text=Silver+Scooter+2",
                 "https://dummyimage.com/600x400/c0c0c0/000&text=Silver+Scooter+3"
               ],
-              "grey": [
+              "gray": [
                 "https://dummyimage.com/600x400/808080/fff&text=Grey+Scooter+1",
                 "https://dummyimage.com/600x400/808080/fff&text=Grey+Scooter+2",
                 "https://dummyimage.com/600x400/808080/fff&text=Grey+Scooter+3"
@@ -142,7 +142,7 @@ export const modelData: VehicleData = {
                 "https://dummyimage.com/600x400/c0c0c0/000&text=Silver+Scooter+2",
                 "https://dummyimage.com/600x400/c0c0c0/000&text=Silver+Scooter+3"
               ],
-              "grey": [
+              "gray": [
                 "https://dummyimage.com/600x400/808080/fff&text=Grey+Scooter+1",
                 "https://dummyimage.com/600x400/808080/fff&text=Grey+Scooter+2",
                 "https://dummyimage.com/600x400/808080/fff&text=Grey+Scooter+3"
@@ -202,7 +202,7 @@ export const modelData: VehicleData = {
                 "https://dummyimage.com/600x400/c0c0c0/000&text=Silver+Scooter+2",
                 "https://dummyimage.com/600x400/c0c0c0/000&text=Silver+Scooter+3"
               ],
-              "grey": [
+              "gray": [
                 "https://dummyimage.com/600x400/808080/fff&text=Grey+Scooter+1",
                 "https://dummyimage.com/600x400/808080/fff&text=Grey+Scooter+2",
                 "https://dummyimage.com/600x400/808080/fff&text=Grey+Scooter+3"
