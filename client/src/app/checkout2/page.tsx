@@ -23,6 +23,7 @@ interface CoverItemProps {
 export default function Checkout2() {
   const [isOpen, setIsOpen] = useState(true);
   const [selectedColor, setSelectedColor] = useState("White");
+  const [selectedTab, setSelectTab] = useState(0);
 
   const coverItems: CoverItemProps[] = [
     {
@@ -94,7 +95,7 @@ export default function Checkout2() {
   return (
     <>
       <div className="flex h-[960px]">
-        <Carousel />
+        <Carousel tabIndex={selectedTab} color={selectedColor}/>
 
         {isOpen && (
           <div
