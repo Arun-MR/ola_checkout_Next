@@ -1,0 +1,49 @@
+import React from 'react';
+
+type PriceProps = {
+  amount: string;
+  iconSrc: string;
+};
+
+const Price: React.FC<PriceProps> = ({ amount, iconSrc }) => (
+  <div className="flex gap-1.5 pr-2 text-xl font-medium leading-8 text-black whitespace-nowrap">
+    <div>{amount}</div>
+    <img loading="lazy" src={iconSrc} alt="" className="shrink-0 my-auto aspect-square w-[18px]" />
+  </div>
+);
+
+type EMIInfoProps = {
+  text: string;
+};
+
+const EMIInfo: React.FC<EMIInfoProps> = ({ text }) => (
+  <div className="text-sm leading-5 underline text-black text-opacity-60">
+    {text}
+  </div>
+);
+
+type ButtonProps = {
+  text: string;
+};
+
+const Button: React.FC<ButtonProps> = ({ text }) => (
+  <button className="justify-center items-center px-16 py-3 bg-black text-white text-base leading-6 whitespace-nowrap">
+    {text}
+  </button>
+);
+
+const MyComponent: React.FC = () => {
+  return (
+    <main className="flex gap-0 max-w-[368px]">
+      <section className="flex flex-col self-start px-5">
+        <Price amount="₹1,28,999" iconSrc="https://cdn.builder.io/api/v1/image/assets/TEMP/8167d261ea1aad8b52e4d6a3bf6701d5a3ecfb184e5fd39c41cb0f0f07ef3596?apiKey=971b6410d97242e7b97afd5891e4e40f&" />
+        <EMIInfo text="EMI starting from ₹3,099" />
+      </section>
+      <section className="flex flex-col pb-6 text-center bg-white">
+        <Button text="Continue" />
+      </section>
+    </main>
+  );
+};
+
+export default MyComponent;
