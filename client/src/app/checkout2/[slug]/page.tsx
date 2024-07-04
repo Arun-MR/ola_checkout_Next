@@ -1,90 +1,34 @@
 "use client";
 
-import { useState, ChangeEvent } from "react";
-import Image from "next/image";
+import { useState, ChangeEvent, useEffect } from "react";
 import Carousel from "@/components/carousel";
-import { modelData } from "@/Dummy/modelData";
+import { useSearchParams } from 'next/navigation'
+import { addOns, avatars, avatarsDetails, coverItems, modelData } from "@/Dummy/modelData";
 
-type AddOnItemProps = {
-  icon: string;
-  title: string;
-  description: string;
-  price: string;
-};
+export default function Checkout2({ params }: { params: { slug: number } }) {
+  const [isOpen, setIsOpen] = useState(true);
+  const [selectedColor, setSelectedColor] = useState("White");
+  const [selectedTab, setSelectTab] = useState(0);  
+  const [selectedAvatar, setSelectedAvatar] = useState(0);
+  const [queryTabData, setQueryTabData] = useState(0);
+  const [queryColorData, setQueryColorData] = useState("");
+  const searchParams = useSearchParams()
 
-interface CoverItemProps {
-  title: string;
-  price: string;
-  description: string;
-  knowMoreText: string;
-  imageSrc: string;
-  recommended?: boolean;
-}
+  const tabIndex = searchParams.get('tabIndex');
+  const color = searchParams.get('color')
+  const [isReady, setIsReady] = useState(false);
 
-export default function Checkout2() {
-    const [selectedTab, setSelectTab] = useState(0);
-    const defaultImage= modelData.vehicles.models[selectedTab].variants[0].color_options[0]
-    const [isOpen, setIsOpen] = useState(true);
-    const [selectedColor, setSelectedColor] = useState(defaultImage);
+  useEffect(() => {
+    if (tabIndex && color) {
+      setIsReady(true);
+      setQueryTabData(parseInt(tabIndex))
+      setQueryColorData(color)
+    }
+  }, [ tabIndex, color]);
 
-  const coverItems: CoverItemProps[] = [
-    {
-      title: "Protect your Charger & Screen",
-      price: "₹799/year",
-      description:
-        "Secure your scooters display and charger from accidental damage and theft ..",
-      knowMoreText: "know more",
-      imageSrc:
-        "https://cdn.builder.io/api/v1/image/assets/TEMP/15f0a4a3ad38bc410807139c471872329909d34c6398cb595f102c5224ffad2b?apiKey=971b6410d97242e7b97afd5891e4e40f&",
-      recommended: true,
-    },
-    {
-      title: "Protection from Rodents",
-      price: "₹699/year",
-      description:
-        "Ride worry-free with rodent and animal attack coverage. Uncheck to opt-out ..",
-      knowMoreText: "know more",
-      imageSrc:
-        "https://cdn.builder.io/api/v1/image/assets/TEMP/3984edeb58cf9feba3e86a6fa4c38857dcaa1174e12bbe31b4251b27366edb0e?apiKey=971b6410d97242e7b97afd5891e4e40f&",
-    },
-  ];
-
-  const avatars = [
-    {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/af232b9c11c5cc13e755a1df36fb0f836ccdc4314eda3a0fb9116a76e3b5d45c?apiKey=971b6410d97242e7b97afd5891e4e40f&",
-    },
-    {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/c48ac4a734b5eb7a4d93d9b2c00098817745cb6e81091b27128bfef53a4244eb?apiKey=971b6410d97242e7b97afd5891e4e40f&",
-    },
-    {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/915b7b92417209dc24714e4f0e0a8b4a512043caa6512768bf5f35dbb7a55f7a?apiKey=971b6410d97242e7b97afd5891e4e40f&",
-    },
-    {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/13abbb49bccab024979470231a11ea4887292960a9da5e6ca8e35314add4b94a?apiKey=971b6410d97242e7b97afd5891e4e40f&",
-      isActive: true,
-    },
-  ];
-
-  const addOns: AddOnItemProps[] = [
-    {
-      icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/fb58dab99c81e3f92fd92ab0ff40315ac0853f11d05fd9279fb62a03d6489e42?apiKey=971b6410d97242e7b97afd5891e4e40f&",
-      title: "Personal Accident Cover",
-      description: "(Mandatory if you don't have one)",
-      price: "₹443",
-    },
-    {
-      icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/67effc394c0ac2b375e5c4e80b19e6d1497bceab1cdb2e97fa8548a14eedba14?apiKey=971b6410d97242e7b97afd5891e4e40f&",
-      title: "Zero Depreciation",
-      description: "(Claim full cost of repaired parts)",
-      price: "₹1255",
-    },
-    {
-      icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/4e370ccdf5446bb2bbdb07b8b076c39e6b1ab5bc332c35caca9d7acad0cc7bc8?apiKey=971b6410d97242e7b97afd5891e4e40f&",
-      title: "Road Side Assistance",
-      description: "(On road towing and repair services)",
-      price: "₹47",
-    },
-  ];
+  if (!isReady) {
+    return <div>Loading...</div>;
+  }
 
   const handleColorChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedColor(event.target.value);
@@ -97,7 +41,7 @@ export default function Checkout2() {
   return (
     <>
       <div className="flex h-[960px]">
-        <Carousel tabIndex={selectedTab} color={selectedColor}/>
+        <Carousel tabIndex={queryTabData} color={queryColorData}/>
 
         {isOpen && (
           <div
@@ -157,14 +101,15 @@ export default function Checkout2() {
                           </div>
 
                           <nav className="flex overflow-x-auto gap-3 items-start self-stretch pt-4 pr-20 pb-1.5">
-                            {avatars.map((avatar, index) => (
+                            {avatarsDetails.map((avatar, index) => (
                               <div
                                 key={index}
-                                className={`flex justify-center items-center px-1.5 w-14 h-14 bg-gray-100 rounded-3xl border-4 ${
-                                  avatar.isActive
+                                className={`flex justify-center items-center px-1.5 w-14 h-14 bg-gray-100 rounded-full border-2 ${
+                                  index===selectedAvatar
                                     ? "border-lime-400"
                                     : "border-gray-100"
                                 } border-solid`}
+                                onClick={()=>setSelectedAvatar(index)}
                               >
                                 <img
                                   loading="lazy"
@@ -180,14 +125,14 @@ export default function Checkout2() {
                             <header className="flex gap-2">
                               <img
                                 loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/27671ece40e52b14ff135537cd9f8f585af923536b35090850b564f93e49fc2b?apiKey=971b6410d97242e7b97afd5891e4e40f&"
+                                src={avatarsDetails[selectedAvatar].src}
                                 alt=""
-                                className="shrink-0 self-start mt-1.5 w-8 aspect-[1.39]"
+                                className="shrink-0 self-start mt-1.5  aspect-square w-[46px]"
                               />
                               <div className="flex gap-0">
                                 <div className="flex flex-col flex-1">
                                   <h2 className="text-sm leading-6 text-black">
-                                    DIGIT
+                                    {avatarsDetails[selectedAvatar].name}
                                   </h2>
                                   <div className="flex gap-0.5 py-1.5">
                                     <span className="text-base leading-6 text-black">
@@ -199,7 +144,7 @@ export default function Checkout2() {
                                   </div>
                                 </div>
                                 <span className="self-start text-base leading-5 text-black">
-                                  ₹9118
+                                  ₹{avatarsDetails[selectedAvatar].price}
                                 </span>
                               </div>
                             </header>

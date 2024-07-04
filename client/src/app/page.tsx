@@ -1,25 +1,26 @@
 "use client";
 
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import Image from "next/image";
 import Carousel from "@/components/carousel";
 import { modelData } from "@/Dummy/modelData";
 import { formatDate } from "@/helpers/formateDate";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Link from "next/link";
 
 export default function Home() {
   const [selectedTab, setSelectTab] = useState(0);
-  const [addOnsArray,setAddOnsArray]=useState<number[]>([])
   const defaultImage= modelData.vehicles.models[selectedTab].variants[0].color_options[0]
   const [isOpen, setIsOpen] = useState(true);
   const [selectedColor, setSelectedColor] = useState(defaultImage);
-
+  const [addOnsArray,setAddOnsArray]=useState<number[]>([])
 
 
   const toggleSlideOver = () => {
     setIsOpen(!isOpen);
   };
+
 
 
   const notify = (id:number) => {
@@ -32,7 +33,7 @@ export default function Home() {
   return (
     <>
       <div className="flex h-[960px]">
-        <Carousel tabIndex={selectedTab} color={selectedColor}/>
+        <Carousel tabIndex={selectedTab} color={selectedColor} />
         <ToastContainer />
 
         {isOpen && (
@@ -79,33 +80,40 @@ export default function Home() {
                           </legend>
 
                           <div className="mt-4 flex items-center space-x-3">
-                            {
-                              modelData.vehicles.models[selectedTab].variants[0].color_options.map((item, index)=>{
-                                return <label
-                                key={index}
-                                aria-label={item}
-                                className={`relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ${
-                                  selectedColor.toLowerCase() === item.toLowerCase()
-                                    ? "ring ring-offset-1"
-                                    : "ring-2"
-                                } ring-${selectedColor.toLowerCase()}-500`}
-                              >
-                                
-                                <input
-                                  type="radio"
-                                  name="color-choice"
-                                  value={selectedColor}
-                                  className="sr-only"
-                                  checked={selectedColor.toLowerCase() === item.toLowerCase()}
-                                  onChange={()=>setSelectedColor(item.toLowerCase())}
-                                />
-                                <span
-                                  aria-hidden="true"
-                                  className={`h-8 w-8 rounded-full border border-black border-opacity-10 bg-${item.toLowerCase()}-500`}
-                                ></span>
-                              </label>
-                              })
-                            }
+                            {modelData.vehicles.models[
+                              selectedTab
+                            ].variants[0].color_options.map((item, index) => {
+                              return (
+                                <label
+                                  key={index}
+                                  aria-label={item}
+                                  className={`relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ${
+                                    selectedColor.toLowerCase() ===
+                                    item.toLowerCase()
+                                      ? "ring ring-offset-1"
+                                      : "ring-2"
+                                  } ring-${selectedColor.toLowerCase()}-500`}
+                                >
+                                  <input
+                                    type="radio"
+                                    name="color-choice"
+                                    value={selectedColor}
+                                    className="sr-only"
+                                    checked={
+                                      selectedColor.toLowerCase() ===
+                                      item.toLowerCase()
+                                    }
+                                    onChange={() =>
+                                      setSelectedColor(item.toLowerCase())
+                                    }
+                                  />
+                                  <span
+                                    aria-hidden="true"
+                                    className={`h-8 w-8 rounded-full border border-black border-opacity-10 bg-${item.toLowerCase()}-500`}
+                                  ></span>
+                                </label>
+                              );
+                            })}
                             {/* <label
                               aria-label="White"
                               className={`relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none  ${
@@ -157,21 +165,27 @@ export default function Home() {
                         </h3>
 
                         <section className="flex gap-0 justify-start w-full rounded mt-5 mx-auto p-2">
-                          {modelData.vehicles.models.map((item, index)=>{
-                            return <div key={index}
-                            className={`flex justify-center items-center px-3   bg-gray-100 border ${selectedTab==index ? 'border-green-500 rounded' : 'border-0' } p-[18px]`}
-                            onClick={()=>{
-                              setSelectTab(index);
-                              setSelectedColor(defaultImage);
-                            }}
-                          >
-                            <img
-                              loading="lazy"
-                              src={item.title_img}
-                              alt={item.title}
-                              className="w-[70px]"
-                            />
-                          </div>
+                          {modelData.vehicles.models.map((item, index) => {
+                            return (
+                              <div key={index}
+                                className={`flex justify-center items-center px-3   bg-gray-100 border ${
+                                  selectedTab == index
+                                    ? "border-green-500 rounded"
+                                    : "border-0"
+                                } p-[18px]`}
+                                onClick={() => {
+                                  setSelectTab(index);
+                                  setSelectedColor(defaultImage);
+                                }}
+                              >
+                                <img
+                                  loading="lazy"
+                                  src={item.title_img}
+                                  alt={item.title}
+                                  className="w-[70px]"
+                                />
+                              </div>
+                            );
                           })}
                         </section>
 
@@ -189,7 +203,13 @@ export default function Home() {
                               alt=""
                               className="shrink-0 self-start mt-1 w-4 aspect-square"
                             />
-                            <p>{modelData.vehicles.models[selectedTab].variants[0].warranty} Battery Warranty included!</p>
+                            <p>
+                              {
+                                modelData.vehicles.models[selectedTab]
+                                  .variants[0].warranty
+                              }{" "}
+                              Battery Warranty included!
+                            </p>
                           </div>
                           <button aria-label="Close warranty banner">
                             <img
@@ -203,7 +223,9 @@ export default function Home() {
 
                         <article className="flex flex-col bg-white rounded border border-green-600 border-solid max-w-[352px]">
                           <header className="flex flex-col px-4 pt-2.5 w-full text-base leading-6 text-neutral-800">
-                            <h1>{modelData.vehicles.models[selectedTab].name}</h1>
+                            <h1>
+                              {modelData.vehicles.models[selectedTab].name}
+                            </h1>
                             <div className="shrink-0 mt-2.5 h-px border-t border-solid border-slate-200" />
                           </header>
                           <section className="flex z-10 gap-5 justify-between px-4 pt-5 pb-4 -mt-2.5 text-black">
@@ -212,21 +234,36 @@ export default function Home() {
                                 CERTIFIED RANGE
                               </div>
                               <div className="flex gap-1 py-1.5">
-                                <div className="grow text-base">{modelData.vehicles.models[selectedTab].variants[0].certified_range_km} </div>
+                                <div className="grow text-base">
+                                  {
+                                    modelData.vehicles.models[selectedTab]
+                                      .variants[0].certified_range_km
+                                  }{" "}
+                                </div>
                               </div>
                             </div>
 
                             <div className="flex flex-col">
                               <div className="text-xs leading-4">TOP SPEED</div>
                               <div className="flex gap-1 py-1.5">
-                                <div className="grow text-base">{modelData.vehicles.models[selectedTab].variants[0].top_speed_kmh}</div>
+                                <div className="grow text-base">
+                                  {
+                                    modelData.vehicles.models[selectedTab]
+                                      .variants[0].top_speed_kmh
+                                  }
+                                </div>
                               </div>
                             </div>
 
                             <div className="flex flex-col">
                               <div className="text-xs leading-4">0-40 km/h</div>
                               <div className="flex gap-1 py-1.5">
-                                <div className="grow text-base">{modelData.vehicles.models[selectedTab].variants[0].acceleration_0_40_kmh_sec}</div>
+                                <div className="grow text-base">
+                                  {
+                                    modelData.vehicles.models[selectedTab]
+                                      .variants[0].acceleration_0_40_kmh_sec
+                                  }
+                                </div>
                               </div>
                             </div>
                           </section>
@@ -234,7 +271,12 @@ export default function Home() {
                           <footer className="flex flex-col justify-center items-start px-4 py-px w-full text-sm leading-5 text-center text-green-600 bg-emerald-50 rounded-none">
                             <div className="flex gap-2.5 py-2.5 pr-3 pl-px">
                               <div className="grow my-auto">
-                                Estimated delivery by {formatDate(modelData.vehicles.models[selectedTab].variants[0].delivery_date)}!
+                                Estimated delivery by{" "}
+                                {formatDate(
+                                  modelData.vehicles.models[selectedTab]
+                                    .variants[0].delivery_date
+                                )}
+                                !
                               </div>
                               <img
                                 loading="lazy"
@@ -523,13 +565,30 @@ export default function Home() {
                             </div>
                           </div>
                           <div className="flex flex-col pb-6 text-center bg-white">
-                            <button className="justify-center items-center px-16 py-3 bg-black text-white text-base leading-6 whitespace-nowrap">
+                            <Link
+                              // href={{
+                                // pathname: `/checkout2/${modelData.vehicles.models[selectedTab].id}`,
+                                // query: {
+                                //   tabIndex: selectedTab,
+                                //   color: selectedColor,
+                                // },
+                                href={{
+                                  pathname: `/checkout2/${modelData.vehicles.models[selectedTab].id}`,
+                                  query: {
+                                      tabIndex: selectedTab,
+                                      color: selectedColor,
+                                    },
+                                }}
+                                passHref
+                              // }}
+                              className="justify-center items-center px-16 py-3 bg-black text-white text-base leading-6 whitespace-nowrap"
+                            >
                               Continue
-                            </button>
+                            </Link>
                           </div>
                         </div>
 
-                          {/* <p className="mt-0.5 text-sm text-gray-500">
+                        {/* <p className="mt-0.5 text-sm text-gray-500">
                             Shipping and taxes calculated at checkout.
                           </p>
                           <div className="mt-6">
