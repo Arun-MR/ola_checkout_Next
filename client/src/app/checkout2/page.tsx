@@ -273,30 +273,50 @@ export default function Checkout2() {
                           ))}
                         </div>
 
-                        <div className="text-xs leading-5 text-center max-w-[383px] text-black text-opacity-60">
-      <p className="text-xs">
-        By continuing, I agree to the{" "}
+                        <div className="text-xs leading-5 text-center max-w-[383px] text-black text-opacity-60 mt-5 ">
+                          <p className="text-xs">
+                            By continuing, I agree to the{" "}
+                            <a
+                              href="#"
+                              className="text-black underline text-xs"
+                            >
+                              privacy policy
+                            </a>
+                            & T&Cs of &nbsp;
+                            <a
+                              href="#"
+                              className="text-black underline text-xs"
+                            >
+                              DIGIT &nbsp;
+                            </a>
+                            & &nbsp;
+                            <a
+                              href="#"
+                              className="text-black underline text-xs"
+                            >
+                              Ola &nbsp;
+                            </a>
+                            <a
+                              href="#"
+                              className="text-black underline text-xs"
+                            >
+                              Financial Services
+                            </a>
+                          </p>
+                        </div>
 
-     
-        
-     
-            <a href='#' className="text-black underline text-xs">
-            privacy policy 
-  </a>
-  & T&Cs of &nbsp;
-  <a href='#' className="text-black underline text-xs">
-  DIGIT &nbsp;
-  </a>
-  & &nbsp;
-  <a href='#' className="text-black underline text-xs">
-  Ola &nbsp;
-  </a>
-  <a href='#' className="text-black underline text-xs">
-  Financial Services
-  </a>
-        
-      </p>
-    </div>
+                        <div className="flex flex-col  text-center bg-gray-100 mt-5">
+                          <button className="justify-center items-center px-16 py-3 bg-black text-white text-base leading-6 whitespace-nowrap">
+                            Continue
+                          </button>
+                        </div>
+                        <div className="border-t border-gray-300 my-4"></div>
+
+                        <div>
+                            <p className='text-gray-500 text-xs flex justify-center items-center'>Powered by Ola Financial Services Pvt. Ltd</p>
+                            <p className='text-gray-500 text-xs flex justify-center items-center'>IRDAI Registration No. CA0682, CIN: U22219KA2007PTC127705</p>
+
+                        </div>
                       </div>
                     </div>
                   </div>
