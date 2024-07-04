@@ -3,6 +3,7 @@
 import { useState, ChangeEvent } from "react";
 import Image from "next/image";
 import Carousel from "@/components/carousel";
+import { modelData } from "@/Dummy/modelData";
 
 type AddOnItemProps = {
   icon: string;
@@ -21,9 +22,10 @@ interface CoverItemProps {
 }
 
 export default function Checkout2() {
-  const [isOpen, setIsOpen] = useState(true);
-  const [selectedColor, setSelectedColor] = useState("White");
-  const [selectedTab, setSelectTab] = useState(0);
+    const [selectedTab, setSelectTab] = useState(0);
+    const defaultImage= modelData.vehicles.models[selectedTab].variants[0].color_options[0]
+    const [isOpen, setIsOpen] = useState(true);
+    const [selectedColor, setSelectedColor] = useState(defaultImage);
 
   const coverItems: CoverItemProps[] = [
     {

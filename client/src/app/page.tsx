@@ -5,20 +5,35 @@ import Image from "next/image";
 import Carousel from "@/components/carousel";
 import { modelData } from "@/Dummy/modelData";
 import { formatDate } from "@/helpers/formateDate";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
-  const [isOpen, setIsOpen] = useState(true);
-  const [selectedColor, setSelectedColor] = useState("White");
   const [selectedTab, setSelectTab] = useState(0);
+  const [addOnsArray,setAddOnsArray]=useState<number[]>([])
+  const defaultImage= modelData.vehicles.models[selectedTab].variants[0].color_options[0]
+  const [isOpen, setIsOpen] = useState(true);
+  const [selectedColor, setSelectedColor] = useState(defaultImage);
+
+
 
   const toggleSlideOver = () => {
     setIsOpen(!isOpen);
   };
 
+
+  const notify = (id:number) => {
+    // addOnsArray.push(id)
+    setAddOnsArray([...addOnsArray, id]);
+    console.log(addOnsArray,"arr",addOnsArray.includes(id))
+    
+    toast(`Added to Cart`);}
+
   return (
     <>
       <div className="flex h-[960px]">
         <Carousel tabIndex={selectedTab} color={selectedColor}/>
+        <ToastContainer />
 
         {isOpen && (
           <div
@@ -27,6 +42,10 @@ export default function Home() {
             role="dialog"
             aria-modal="true"
           >
+             <div>
+
+
+  </div>
             {/* <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div> */}
             <div className="fixed inset-0 overflow-hidden">
               <div className="absolute inset-0 overflow-hidden">
@@ -139,9 +158,12 @@ export default function Home() {
 
                         <section className="flex gap-0 justify-start w-full rounded mt-5 mx-auto p-2">
                           {modelData.vehicles.models.map((item, index)=>{
-                            return <div
+                            return <div key={index}
                             className={`flex justify-center items-center px-3   bg-gray-100 border ${selectedTab==index ? 'border-green-500 rounded' : 'border-0' } p-[18px]`}
-                            onClick={()=>setSelectTab(index)}
+                            onClick={()=>{
+                              setSelectTab(index);
+                              setSelectedColor(defaultImage);
+                            }}
                           >
                             <img
                               loading="lazy"
@@ -363,9 +385,11 @@ export default function Home() {
                                       <button
                                         type="submit"
                                         className="flex-none rounded-md bg-green-100 px-8 py-2.5 text-sm font-semibold   text-green-500"
+                                        onClick={() => notify(1)}
                                       >
-                                        Add
+                                      {addOnsArray.includes(1)? 'Added':'Add'} 
                                       </button>{" "}
+                                     
                                     </div>
                                   </div>
                                 </div>
@@ -401,8 +425,9 @@ export default function Home() {
                                       <button
                                         type="submit"
                                         className="flex-none rounded-md bg-green-100 px-8 py-2.5 text-sm font-semibold   text-green-500"
+                                        onClick={() => notify(2)}
                                       >
-                                        Add
+                                       {addOnsArray.includes(2)? 'Added':'Add'} 
                                       </button>{" "}
                                     </div>
                                   </div>
@@ -440,8 +465,9 @@ export default function Home() {
                                       <button
                                         type="submit"
                                         className="flex-none rounded-md bg-green-100 px-8 py-2.5 text-sm font-semibold   text-green-500"
+                                        onClick={() => notify(3)}
                                       >
-                                        Add
+                                       {addOnsArray.includes(3)? 'Added':'Add'} 
                                       </button>{" "}
                                     </div>
                                   </div>
@@ -453,7 +479,7 @@ export default function Home() {
                             <div className="flex items-center gap-5 bg-gray-200 h-20 mt-5 w-full pl-3">
                               <input
                                 type="checkbox"
-                                className="h-9 w-5 text-green-700 border-green-300 rounded bg-green-500"
+                                className="h-7 w-7 text-green-700 border-green-300 rounded bg-green-500"
                               />
                               <label className="text-gray-700">
                                 I agree to the{" "}
@@ -534,7 +560,9 @@ export default function Home() {
             </div>
           </div>
         )}
+
       </div>
+      
     </>
   );
 }

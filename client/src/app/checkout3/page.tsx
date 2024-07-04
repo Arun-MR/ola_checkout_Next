@@ -3,7 +3,7 @@
 import { useState, ChangeEvent } from "react";
 import Image from "next/image";
 import Carousel from "@/components/carousel";
-import { modelData } from "@/common/modelData";
+import { modelData } from "@/Dummy/modelData";
 
 
 type AccessoryItemProps = {
@@ -56,9 +56,10 @@ type SectionProps = {
   );
 
 export default function SlideOver() {
-  const [isOpen, setIsOpen] = useState(true);
-  const [selectedColor, setSelectedColor] = useState("White");
-  const [selectedTab, setSelectTab] = useState(0);
+    const [selectedTab, setSelectTab] = useState(0);
+    const defaultImage= modelData.vehicles.models[selectedTab].variants[0].color_options[0]
+    const [isOpen, setIsOpen] = useState(true);
+    const [selectedColor, setSelectedColor] = useState(defaultImage);
 
   const accessories = [
     { imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/c46fc3965ecbd303c589f93b0d51a8f1f073bc4bba982a895dcc04f45f5599e8?apiKey=971b6410d97242e7b97afd5891e4e40f&", name: "Scooter Cover", price: "₹999" },
@@ -77,8 +78,7 @@ export default function SlideOver() {
   return (
     <>
       <div className="flex h-[960px]">
-        <Carousel />
-
+      <Carousel tabIndex={selectedTab} color={selectedColor}/>
         {isOpen && (
           <div
             className="relative z-10"
@@ -267,8 +267,8 @@ export default function SlideOver() {
       </div> */}
 
 <div>
-        <p className="text-gray-400">COUPONS</p>
-        <div className="flex justify-between">
+        <p className="text-gray-400 mb-3 text-md">COUPONS</p>
+        <div className="flex justify-between    gap-9">
             <p className="text-green-400 text-lg">
             Apply coupon
             </p>
@@ -279,8 +279,24 @@ export default function SlideOver() {
 
     </section>
 
+    <div className="flex items-center gap-5  h-20 mt-5 w-full pl-3 bg-gray-100">
+                              <input
+                                type="checkbox"
+                                className="h-7 w-7 text-green-700 border-green-300 rounded bg-green-500"
+                              />
+                              <label className="text-gray-700">
+                              I confirm that this is my first electric two-wheeler purchase and I agree to {" "}
+                                <a href="#" className="text-gray-500 underline">
+                                T&Cs
+                                </a>
+                              </label>
+                            </div>
    
-           
+                            <div className="flex flex-col  text-center bg-gray-100 mt-5">
+                          <button className="justify-center items-center px-16 py-3 bg-black text-white text-base leading-6 whitespace-nowrap">
+                            Continue
+                          </button>
+                        </div>
                 
                       </div>
 
