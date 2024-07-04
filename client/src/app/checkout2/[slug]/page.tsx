@@ -4,8 +4,10 @@ import { useState, ChangeEvent, useEffect } from "react";
 import Carousel from "@/components/carousel";
 import { useSearchParams } from 'next/navigation'
 import { addOns, avatars, avatarsDetails, coverItems, modelData } from "@/Dummy/modelData";
+import { useRouter } from "next/navigation";
 
 export default function Checkout2({ params }: { params: { slug: number } }) {
+  const router =useRouter()
   const [isOpen, setIsOpen] = useState(true);
   const [selectedColor, setSelectedColor] = useState("White");
   const [selectedTab, setSelectTab] = useState(0);  
@@ -17,6 +19,7 @@ export default function Checkout2({ params }: { params: { slug: number } }) {
   const tabIndex = searchParams.get('tabIndex');
   const color = searchParams.get('color')
   const [isReady, setIsReady] = useState(false);
+
 
   useEffect(() => {
     if (tabIndex && color) {
@@ -254,7 +257,7 @@ export default function Checkout2({ params }: { params: { slug: number } }) {
                         </div>
 
                         <div className="flex flex-col  text-center bg-gray-100 mt-5">
-                          <button className="justify-center items-center px-16 py-3 bg-black text-white text-base leading-6 whitespace-nowrap">
+                          <button className="justify-center items-center px-16 py-3 bg-black text-white text-base leading-6 whitespace-nowrap" onClick={()=>router.push('/checkout3')}>
                             Continue
                           </button>
                         </div>
