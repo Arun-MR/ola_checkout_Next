@@ -3,10 +3,14 @@
 import { useState, ChangeEvent } from "react";
 import Image from "next/image";
 import Carousel from "@/components/carousel";
+import { modelData } from "@/common/modelData";
+
+
 
 export default function SlideOver() {
   const [isOpen, setIsOpen] = useState(true);
   const [selectedColor, setSelectedColor] = useState("White");
+  const [selectedTab, setSelectTab] = useState(0);
 
   const handleColorChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedColor(event.target.value);
@@ -61,7 +65,34 @@ export default function SlideOver() {
                           </legend>
 
                           <div className="mt-4 flex items-center space-x-3">
-                            <label
+                            {
+                              modelData.vehicles.models[selectedTab].variants[0].color_options.map((item, index)=>{
+                                return <label
+                                key={index}
+                                aria-label={item}
+                                className={`relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ${
+                                  selectedColor.toLowerCase() === item.toLowerCase()
+                                    ? "ring ring-offset-1"
+                                    : "ring-2"
+                                } ring-${selectedColor.toLowerCase()}-500`}
+                              >
+                                
+                                <input
+                                  type="radio"
+                                  name="color-choice"
+                                  value={selectedColor}
+                                  className="sr-only"
+                                  checked={selectedColor.toLowerCase() === item.toLowerCase()}
+                                  onChange={()=>setSelectedColor(item.toLowerCase())}
+                                />
+                                <span
+                                  aria-hidden="true"
+                                  className={`h-8 w-8 rounded-full border border-black border-opacity-10 bg-${item.toLowerCase()}-500`}
+                                ></span>
+                              </label>
+                              })
+                            }
+                            {/* <label
                               aria-label="White"
                               className={`relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none  ${
                                 selectedColor === "White"
@@ -80,28 +111,6 @@ export default function SlideOver() {
                               <span
                                 aria-hidden="true"
                                 className="h-8 w-8 rounded-full border border-black border-opacity-10 bg-white"
-                              ></span>
-                            </label>
-
-                            <label
-                              aria-label="Gray"
-                              className={`relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ${
-                                selectedColor === "Gray"
-                                  ? "ring ring-offset-1"
-                                  : "ring-2"
-                              } ring-gray-400`}
-                            >
-                              <input
-                                type="radio"
-                                name="color-choice"
-                                value="Gray"
-                                className="sr-only"
-                                checked={selectedColor === "Gray"}
-                                onChange={handleColorChange}
-                              />
-                              <span
-                                aria-hidden="true"
-                                className="h-8 w-8 rounded-full border border-black border-opacity-10 bg-gray-200"
                               ></span>
                             </label>
 
@@ -125,7 +134,7 @@ export default function SlideOver() {
                                 aria-hidden="true"
                                 className="h-8 w-8 rounded-full border border-black border-opacity-10 bg-gray-900"
                               ></span>
-                            </label>
+                            </label> */}
                           </div>
                         </fieldset>
 
@@ -133,43 +142,24 @@ export default function SlideOver() {
                           CHOOSE MODEL AND VARIANT
                         </h3>
 
-                        <section className="flex gap-0 justify-start w-full rounded mt-5 mx-auto">
-                          <div
-                            className='flex justify-center items-center px-3   bg-gray-100 border border-green-500'
+                        <section className="flex gap-0 justify-start w-full rounded mt-5 mx-auto p-2">
+                          {modelData.vehicles.models.map((item, index)=>{
+                            return <div
+                            className={`flex justify-center items-center px-3   bg-gray-100 border ${selectedTab==index ? 'border-green-500 rounded' : 'border-0' } p-[18px]`}
+                            onClick={()=>setSelectTab(index)}
                           >
                             <img
                               loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0233698207702652e301588a56560cc8529960e374f17dccd954a015ec0bea9?apiKey=971b6410d97242e7b97afd5891e4e40f&"
-                              alt={"alt"}
-                              className="w-[70px] "
+                              src={item.title_img}
+                              alt={item.title}
+                              className="w-[70px]"
                             />
                           </div>
-
-                          <div
-                            className={`flex justify-center items-center px-6 py-5 bg-gray-100 `}
-                          >
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0233698207702652e301588a56560cc8529960e374f17dccd954a015ec0bea9?apiKey=971b6410d97242e7b97afd5891e4e40f&"
-                              alt={"alt"}
-                              className=" w-[74px]"
-                            />
-                          </div>
-
-                          <div
-                            className={`flex justify-center items-center px-6 py-5 bg-gray-100 `}
-                          >
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0233698207702652e301588a56560cc8529960e374f17dccd954a015ec0bea9?apiKey=971b6410d97242e7b97afd5891e4e40f&"
-                              alt={"alt"}
-                              className=" w-[74px]"
-                            />
-                          </div>
+                          })}
                         </section>
 
                         <section
-                          className="flex gap-5 justify-between p-2 text-sm leading-5 text-center text-green-600 rounded-none  max-w-[352px] "
+                          className="flex gap-5 justify-between p-2 mb-2 text-sm leading-5 text-center text-green-600 rounded-none  max-w-[352px] "
                           style={{
                             backgroundImage:
                               "linear-gradient(180deg, rgba(232, 247, 238, 0.00) 0%, #E8F7EE 100%)",
@@ -182,7 +172,7 @@ export default function SlideOver() {
                               alt=""
                               className="shrink-0 self-start mt-1 w-4 aspect-square"
                             />
-                            <p>8 Year Battery Warranty included!</p>
+                            <p>{modelData.vehicles.models[selectedTab].variants[0].warranty} Battery Warranty included!</p>
                           </div>
                           <button aria-label="Close warranty banner">
                             <img
@@ -196,7 +186,7 @@ export default function SlideOver() {
 
                         <article className="flex flex-col bg-white rounded border border-green-600 border-solid max-w-[352px]">
                           <header className="flex flex-col px-4 pt-2.5 w-full text-base leading-6 text-neutral-800">
-                            <h1>S1 Pro 2nd Generation</h1>
+                            <h1>{modelData.vehicles.models[selectedTab].name}</h1>
                             <div className="shrink-0 mt-2.5 h-px border-t border-solid border-slate-200" />
                           </header>
                           <section className="flex z-10 gap-5 justify-between px-4 pt-5 pb-4 -mt-2.5 text-black">
@@ -205,21 +195,21 @@ export default function SlideOver() {
                                 CERTIFIED RANGE
                               </div>
                               <div className="flex gap-1 py-1.5">
-                                <div className="grow text-base">195 km </div>
+                                <div className="grow text-base">{modelData.vehicles.models[selectedTab].variants[0].certified_range_km} </div>
                               </div>
                             </div>
 
                             <div className="flex flex-col">
                               <div className="text-xs leading-4">TOP SPEED</div>
                               <div className="flex gap-1 py-1.5">
-                                <div className="grow text-base">120 km/h</div>
+                                <div className="grow text-base">{modelData.vehicles.models[selectedTab].variants[0].top_speed_kmh}</div>
                               </div>
                             </div>
 
                             <div className="flex flex-col">
                               <div className="text-xs leading-4">0-40 km/h</div>
                               <div className="flex gap-1 py-1.5">
-                                <div className="grow text-base">2.6 sec</div>
+                                <div className="grow text-base">{modelData.vehicles.models[selectedTab].variants[0].acceleration_0_40_kmh_sec}</div>
                               </div>
                             </div>
                           </section>
@@ -227,7 +217,7 @@ export default function SlideOver() {
                           <footer className="flex flex-col justify-center items-start px-4 py-px w-full text-sm leading-5 text-center text-green-600 bg-emerald-50 rounded-none">
                             <div className="flex gap-2.5 py-2.5 pr-3 pl-px">
                               <div className="grow my-auto">
-                                Estimated delivery by 10th Jul 2024!
+                                Estimated delivery by {}!
                               </div>
                               <img
                                 loading="lazy"
@@ -498,7 +488,7 @@ export default function SlideOver() {
                         <div className="flex gap-0 max-w-[368px]">
                           <div className="flex flex-col self-start px-5">
                             <div className="flex gap-1.5 pr-2 text-xl font-medium leading-8 text-black whitespace-nowrap">
-                              <div>₹1,28,999</div>
+                              <div>{`₹${modelData.vehicles.models[selectedTab].variants[0].price}`}</div>
                               <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/8167d261ea1aad8b52e4d6a3bf6701d5a3ecfb184e5fd39c41cb0f0f07ef3596?apiKey=971b6410d97242e7b97afd5891e4e40f&"
