@@ -144,7 +144,7 @@ export default function SlideOver() {
 
                         <section className="flex gap-0 justify-start w-full rounded mt-5 mx-auto p-2">
                           {modelData.vehicles.models.map((item, index)=>{
-                            return <div
+                            return <div key={index}
                             className={`flex justify-center items-center px-3   bg-gray-100 border ${selectedTab==index ? 'border-green-500 rounded' : 'border-0' } p-[18px]`}
                             onClick={()=>setSelectTab(index)}
                           >
@@ -455,10 +455,10 @@ export default function SlideOver() {
                               {/* More products... */}
                             </ul>
 
-                            <div className="flex items-center gap-5 bg-gray-200 h-20 mt-5 w-full pl-3">
+                            <div className="flex items-center gap-5 bg-gray-200 h-20 mt-5 w-full pl-3 pr-3">
                               <input
                                 type="checkbox"
-                                className="h-9 w-5 text-green-700 border-green-300 rounded bg-green-500"
+                                className="h-7 w-7 text-green-700 border-green-300 rounded bg-green-500"
                               />
                               <label className="text-gray-700">
                                 I agree to the{" "}
