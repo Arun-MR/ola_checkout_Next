@@ -16,6 +16,7 @@ interface Variant {
 }
 
 interface Model {
+  id:number,
   title: string;
   title_img: string;
   name: string;
@@ -32,6 +33,7 @@ export const modelData: VehicleData = {
   vehicles: {
     models: [
       {
+        id:0,
         title: "S1 Pro",
         title_img: "https://cdn.builder.io/api/v1/image/assets/TEMP/b0233698207702652e301588a56560cc8529960e374f17dccd954a015ec0bea9?apiKey=971b6410d97242e7b97afd5891e4e40f&",
         name: "S1 Pro 2nd Generation",
@@ -91,6 +93,7 @@ export const modelData: VehicleData = {
         ]
       },
       {
+        id:1,
         title: "S1 Air",
         title_img: "https://assets.olaelectric.com/olaelectric-videos/configs-static/assets/rightSide/ola-s1-air-icon.svg",
         name: "S1 Air",
@@ -150,6 +153,7 @@ export const modelData: VehicleData = {
         ]
       },
       {
+        id:2,
         title: "S1 Lite",
         title_img: "https://assets.olaelectric.com/olaelectric-videos/configs-static/assets/rightSide/s1X_img.svg",
         name: "S1 Lite",
@@ -212,6 +216,95 @@ export const modelData: VehicleData = {
     
   }
 };
+
+type AddOnItemProps = {
+  icon: string;
+  title: string;
+  description: string;
+  price: string;
+};
+
+interface CoverItemProps {
+  title: string;
+  price: string;
+  description: string;
+  knowMoreText: string;
+  imageSrc: string;
+  recommended?: boolean;
+}
+
+export const coverItems: CoverItemProps[] = [
+  {
+    title: "Protect your Charger & Screen",
+    price: "₹799/year",
+    description:
+      "Secure your scooters display and charger from accidental damage and theft ..",
+    knowMoreText: "know more",
+    imageSrc:
+      "https://cdn.builder.io/api/v1/image/assets/TEMP/15f0a4a3ad38bc410807139c471872329909d34c6398cb595f102c5224ffad2b?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+    recommended: true,
+  },
+  {
+    title: "Protection from Rodents",
+    price: "₹699/year",
+    description:
+      "Ride worry-free with rodent and animal attack coverage. Uncheck to opt-out ..",
+    knowMoreText: "know more",
+    imageSrc:
+      "https://cdn.builder.io/api/v1/image/assets/TEMP/3984edeb58cf9feba3e86a6fa4c38857dcaa1174e12bbe31b4251b27366edb0e?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+  },
+];
+
+export const avatars = [
+  "https://cdn.builder.io/api/v1/image/assets/TEMP/af232b9c11c5cc13e755a1df36fb0f836ccdc4314eda3a0fb9116a76e3b5d45c?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+  "https://cdn.builder.io/api/v1/image/assets/TEMP/c48ac4a734b5eb7a4d93d9b2c00098817745cb6e81091b27128bfef53a4244eb?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+  "https://cdn.builder.io/api/v1/image/assets/TEMP/915b7b92417209dc24714e4f0e0a8b4a512043caa6512768bf5f35dbb7a55f7a?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+  "https://cdn.builder.io/api/v1/image/assets/TEMP/13abbb49bccab024979470231a11ea4887292960a9da5e6ca8e35314add4b94a?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+];
+
+export const avatarsDetails= [
+  {
+    name: "ICICI Lombard",
+    price: "5999",
+    src:   "https://cdn.builder.io/api/v1/image/assets/TEMP/af232b9c11c5cc13e755a1df36fb0f836ccdc4314eda3a0fb9116a76e3b5d45c?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+  },
+  {
+    name: "TATA",
+    price: "5683",
+    src:   "https://cdn.builder.io/api/v1/image/assets/TEMP/c48ac4a734b5eb7a4d93d9b2c00098817745cb6e81091b27128bfef53a4244eb?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+  },
+  {
+    name: "Reliance",
+    price: "8765",
+    src:     "https://cdn.builder.io/api/v1/image/assets/TEMP/915b7b92417209dc24714e4f0e0a8b4a512043caa6512768bf5f35dbb7a55f7a?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+  },
+  {
+    name: "DIGIT",
+    price: "4567",
+    src:   "https://cdn.builder.io/api/v1/image/assets/TEMP/13abbb49bccab024979470231a11ea4887292960a9da5e6ca8e35314add4b94a?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+  }
+]
+
+export const addOns: AddOnItemProps[] = [
+  {
+    icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/fb58dab99c81e3f92fd92ab0ff40315ac0853f11d05fd9279fb62a03d6489e42?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+    title: "Personal Accident Cover",
+    description: "(Mandatory if you don't have one)",
+    price: "₹443",
+  },
+  {
+    icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/67effc394c0ac2b375e5c4e80b19e6d1497bceab1cdb2e97fa8548a14eedba14?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+    title: "Zero Depreciation",
+    description: "(Claim full cost of repaired parts)",
+    price: "₹1255",
+  },
+  {
+    icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/4e370ccdf5446bb2bbdb07b8b076c39e6b1ab5bc332c35caca9d7acad0cc7bc8?apiKey=971b6410d97242e7b97afd5891e4e40f&",
+    title: "Road Side Assistance",
+    description: "(On road towing and repair services)",
+    price: "₹47",
+  },
+];
 
 
 
