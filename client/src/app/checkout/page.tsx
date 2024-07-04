@@ -63,11 +63,11 @@ export default function SlideOver() {
                           <div className="mt-4 flex items-center space-x-3">
                             <label
                               aria-label="White"
-                              className={`relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ${
+                              className={`relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none  ${
                                 selectedColor === "White"
                                   ? "ring ring-offset-1"
                                   : "ring-2"
-                              } ring-gray-400`}
+                              } ring-gray-400`} 
                             >
                               <input
                                 type="radio"
